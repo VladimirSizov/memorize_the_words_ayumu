@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    </head>
+    <body>
+
+        <div id="header">
+            <span class="logo">AYUMU</span>
+            <!-- проверка аутентификации -->
+            {% if request.user.is_authenticated %}
+                <ul class="menu">
+                    <li {% if section == 'dashboard' %} class="selected" {% endif %}>
+                        <a href="{% url 'dashboard' %}">статистика</a>
+                </ul>
+               <!--
+                    <ul class="menu">
+                    <li {% if section == 'dashboard' %} class="selected" {% endif %}>
+                        <a href="{% url 'dashboard' %}">приветствие</a>
+                    </li>
+                    <li {% if section == 'training' %} class="selected"{% endif %}>
+                        <a href="training/">тренировка</a>
+                    </li>
+
+                -->
+            {% endif %}
+            <!--  -->
+            <span class="user">
+                {% if request.user.is_authenticated %}
+                    {{ request.user.username }}
+                    <a href="{%  url 'logout' %}">logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">log-in</a>
+                {% endif %}
+            </span>
+        </div>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+
+    </body>
+</html>

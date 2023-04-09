@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}INTERVIEW{% endblock %}
+
+{% block content %}
+        <h3>{{ right }}</h3>
+        <h4>{{ wrong_answers_result }}</h4>
+        <h4>{{ previous_result }}</h4>
+        <h2><p>{{ question }}</p></h2>
+        <form action="." method="post">
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+            {% csrf_token %}
+            <p><input type="submit" value="send"></p>
+        </form>
+        <h5>
+            изученных слов: {{ all_w }} (сегодня +{{ today_w }})</br>
+            ошибок в ответах: {{ true_percent }}%</br>
+            всего попыток: {{ get_try }}
+        </h5>
+        <p>
+            <h4><br>самые мало изученные:</h4>
+            <h5>
+            {% for word in mos_dif %}
+                {{ word }}<br>
+            {% endfor %}
+            </h5>
+        </p>
+{% endblock %}
